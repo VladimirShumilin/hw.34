@@ -1,0 +1,14 @@
+{
+  "Address": {
+    "Building": 34,
+    "House": 2,
+    "Street": "Pushkina dev"
+  },
+  "Area": 250,
+  "CurrentVolts": 220,
+  "FloorAmount": 2,
+  "GasConnected": true,
+  "Heating": 0,
+  "Material": 0,
+  "Telephone": "+79261123455"
+}
