@@ -29,18 +29,22 @@ namespace WebApiVS
         }
 
         public IConfiguration Configuration { get; } = new ConfigurationBuilder()
-  .AddJsonFile("HomeOptions.json")
-  .Build();
+              .AddJsonFile("appsettings.json")
+              .AddJsonFile("appsettings.Development.json")
+              .AddJsonFile("HomeOptions.json")
+              .Build();
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+
             // Добавляем новый сервис
-            services.Configure<HomeOptions>(Configuration);
+            //services.Configure<HomeOptions>(Configuration);
 
             // Загружаем только адрес (вложенный Json-объект) 
-            //services.Configure<Address>(Configuration.GetSection("Address"));
+            services.Configure<Address>(Configuration.GetSection("Address"));
 
             //services.Configure<HomeOptions>(opt =>
             //{
@@ -56,7 +60,7 @@ namespace WebApiVS
             services.AddSingleton<IDeviceRepository, DeviceRepository>();
             services.AddSingleton<IRoomRepository, RoomRepository>();
 
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            
             services.AddDbContext<HomeApiContext>(options => options.UseSqlServer(connection), ServiceLifetime.Singleton);
 
             // Подключаем валидацию

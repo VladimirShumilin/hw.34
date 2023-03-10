@@ -104,6 +104,24 @@ namespace WebApiVS.Controllers
         }
 
 
+        /// <summary>
+        /// Удаление устройства
+        /// </summary>
+        [HttpDelete]
+        [Route("")]
+        public async Task<IActionResult> Remove(RemoveDiveceRequest request)
+        {
+            var device = await _devices.GetDeviceByName(request.Name);
+            if (device == null)
+                return StatusCode(400, $"Ошибка: Устройство {request.Name} не существует.");
+            else if (device.SerialNumber != request.SerialNumber)
+                return StatusCode(400, $"Ошибка: Серийный номер {request.SerialNumber} не совпадает.");
+
+            await _devices.DeleteDevice(device);
+
+            return StatusCode(200, $"Устройство {request.Name} удалено. Идентификатор: {device.Id}");
+        }
+
         #region на память
         /// <summary>
         /// Просмотр списка подключенных устройств

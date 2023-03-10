@@ -76,7 +76,7 @@ namespace WebApiVS.Controllers
 
             await _repository.UpdateRoom(room, new UpdateRoomQuery(request.NewName, request.NewArea, request.NewVoltage, request.NewGasConnected));
 
-            return StatusCode(200, $"Комната обновлена! Имя - {request.NewName}, Область - {request.NewArea}, Напряжение - {request.NewVoltage}, Подключенный газ - {request.NewGasConnected}");
+            return StatusCode(200, $"Комната {request.NewName} обновлена! , Область {request.NewArea}, Напряжение {request.NewVoltage}, Подключенный газ {request.NewGasConnected}");
         }
     }
 }
